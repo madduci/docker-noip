@@ -13,8 +13,9 @@ ADD $QEMU /usr/bin
 COPY . /usr/src/app
 
 RUN apk add --no-cache make g++ ca-certificates wget shadow &&  \
-    useradd -s /bin/sh noipuser && \
-    echo "Building on arch: $(uname -m)" && \
+    useradd -s /bin/sh noipuser 
+
+RUN echo "Building on arch: $(uname -m)" && \
     cd $(find . -maxdepth 1 -mindepth 1 -type d) && \
     make && \
     cp noip2 /usr/bin
