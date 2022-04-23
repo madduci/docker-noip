@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-VERSION=${QEMU_VERSION:=3.1.0}
+VERSION=${QEMU_VERSION:=7.0.0}
 TARGETS=${ARCH}-linux-user
 
 echo "VERSION: $VERSION"

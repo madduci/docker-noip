@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 function get_noip_duc() {
-  wget -c http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
+  wget -c http://www.noip.com/client/linux/noip-duc-linux.tar.gz
   tar zxf noip-duc-linux.tar.gz
   echo $(find . -maxdepth 1 -mindepth 1 -type d -name 'noip*' | cut -d "-" -f2-)
 }
