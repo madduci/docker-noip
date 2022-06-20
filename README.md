@@ -1,18 +1,16 @@
 NoIP
 ======
 
-[![Build Status](https://travis-ci.org/romeupalos/noip.svg?branch=master)](https://travis-ci.org/romeupalos/noip)
-[![License](	https://img.shields.io/github/license/romeupalos/noip.svg)](LICENSE)
+[![License](	https://img.shields.io/github/license/madduci/docker-noip.svg)](LICENSE)
 
-[![Image Details](https://images.microbadger.com/badges/image/romeupalos/noip.svg)](https://microbadger.com/images/romeupalos/noip)
-[![Docker Pulls](	https://img.shields.io/docker/pulls/romeupalos/noip.svg)](https://hub.docker.com/r/romeupalos/noip)
-[![Last commit](	https://images.microbadger.com/badges/commit/romeupalos/noip.svg)](https://microbadger.com/images/romeupalos/noip)
-[![Docker Stars](	https://img.shields.io/docker/stars/romeupalos/noip.svg)](https://hub.docker.com/r/romeupalos/noip)
+[![Image Details](https://images.microbadger.com/badges/image/madduci/docker-noip.svg)](https://microbadger.com/images/madduci/docker-noip)
+[![Docker Pulls](	https://img.shields.io/docker/pulls/madduci/docker-noip.svg)](https://hub.docker.com/r/madduci/docker-noip)
+[![Last commit](	https://images.microbadger.com/badges/commit/madduci/docker-noip.svg)](https://microbadger.com/images/madduci/docker-noip)
+[![Docker Stars](	https://img.shields.io/docker/stars/madduci/docker-noip.svg)](https://hub.docker.com/r/madduci/docker-noip)
 
 ## Useful links
-* [Docker Hub](https://hub.docker.com/r/romeupalos/noip)
-* [GitHub](https://github.com/romeupalos/noip)
-* [MicroBadger](https://microbadger.com/images/romeupalos/noip)
+* [Docker Hub](https://hub.docker.com/r/madduci/docker-noip)
+* [GitHub](https://github.com/madduci/docker-noip)
 
 ## What is NoIP?
 
@@ -41,12 +39,12 @@ From DUC [Download page](https://www.noip.com/download):
 This is multi architecture docker image for the [NoIP](https://www.noip.com) DUC (Dynamic Update Client)
 
 ### Supported Architectures
+
  * arm32v6
+ * arm32v7
  * arm64v8
  * amd64
  * i386
- * s390x
- * ppc64le
 
 ## Quick Reference
 
@@ -55,7 +53,7 @@ In order to create the configuration file (i.e. `no-ip2.conf`), run the followin
 ```
 docker run -it --rm \
   -v $(pwd):/usr/local/etc \
-  romeupalos/noip -C
+  madduci/docker-noip -C
 ```
 An interactive wizard will ask every necessary information and it will generate the configuration file
 
@@ -65,7 +63,7 @@ An interactive wizard will ask every necessary information and it will generate 
 ```
 docker run -d \
   -v $(pwd)/no-ip2.conf:/usr/local/etc/no-ip2.conf:rw \
-  romeupalos/noip -d
+  madduci/docker-noip -d
 ```
 
 #### Using noip2 command line
@@ -101,20 +99,11 @@ Example
 ```
 docker run -d \
   -v $(pwd)/no-ip2.conf:/usr/local/etc/no-ip2.conf:rw \
-  romeupalos/noip -d \
+  madduci/docker-noip -d \
   -u <username> \
   -p <password> \
   -U [time-interval]
 ```
-
-## Donate
-If you like this image, or if it helped you in any way, you could give me a cup of coffee :)
-
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9VEGSAE5YFDT6&source=url)
-
-## Author
-Romeu Palos de Gouvêa [romeupalos@gmail.com](mailto:romeupalos@gmail.com)
 
 ## License
 MIT

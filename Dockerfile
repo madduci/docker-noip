@@ -1,47 +1,26 @@
-# This is a multi stage Dockefile.
-# This stage will be discarded after the build
-
-ARG ARCH
-ARG QEMU
-
-FROM $ARCH/alpine:latest as intermediate
-
-WORKDIR /usr/src/app
-
-ADD $QEMU /usr/bin
-
-COPY . /usr/src/app
+FROM alpine:latest as builder
 
 RUN apk add --no-cache make g++ ca-certificates wget shadow &&  \
     useradd -s /bin/sh noipuser 
 
-RUN echo "Building on arch: $(uname -m)" && \
-    cd node-$VERSION && \
+RUN cd /tmp && \
+    wget -c http://www.noip.com/client/linux/noip-duc-linux.tar.gz && \
+    tar -zxf noip-duc-linux.tar.gz && \
+    NOIP_VERSION=$(find . -maxdepth 1 -mindepth 1 -type d -name 'noip*' | cut -d "-" -f2-) && \
+    cd noip-${NOIP_VERSION} && \
     make && \
-    cp noip2 /usr/bin
+    cp /tmp/noip-${NOIP_VERSION}/noip2 /usr/bin/noip2
 
-FROM $ARCH/alpine:latest
+FROM alpine:latest
 
-ARG BUILD_DATE
-ARG VCS_REF
-ARG VERSION
-
-# Build-time metadata as defined at http://label-schema.org
-LABEL org.label-schema.build-date=$BUILD_DATE \
-    org.label-schema.name="NoIP" \
-    org.label-schema.description="Dynamic DNS client to update NoIP services." \
-    org.label-schema.vcs-ref=$VCS_REF \
-    org.label-schema.vcs-url="https://github.com/madduci/docker-noip" \
-    org.label-schema.license="MIT" \
-    org.label-schema.version=$VERSION \
-    org.label-schema.schema-version="1.0"
+LABEL maintainer="Michele Adduci <adduci@tutanota.com>" 
 
 COPY ./docker-entry.sh /bin/
 
-COPY --from=intermediate /usr/bin/noip2 /usr/bin/
-COPY --from=intermediate /etc/group /etc/
-COPY --from=intermediate /etc/shadow /etc/
-COPY --from=intermediate /etc/passwd /etc/
+COPY --from=builder /usr/bin/noip2 /usr/bin/
+COPY --from=builder /etc/group /etc/
+COPY --from=builder /etc/shadow /etc/
+COPY --from=builder /etc/passwd /etc/
 
 USER noipuser
 
