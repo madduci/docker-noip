@@ -40,70 +40,31 @@ This is multi architecture docker image for the [NoIP](https://www.noip.com) DUC
 
 ### Supported Architectures
 
- * arm32v6
- * arm32v7
  * arm64v8
  * amd64
  * i386
 
 ## Quick Reference
 
-### Creating the configuration file
-In order to create the configuration file (i.e. `no-ip2.conf`), run the following command
-```
-docker run -it --rm \
-  -v $(pwd):/usr/local/etc \
-  madduci/docker-noip -C
-```
-An interactive wizard will ask every necessary information and it will generate the configuration file
-
 ### Running
 
-#### Using a configuration file (recommended)
-```
+You need to specify the following environment variables:
+
+- NOIP_HOSTNAMES as a comma-separated list of domains in No-Ip
+- NOIP_USERNAME
+- NOIP_PASSWORD
+
+Example:
+
+```sh
 docker run -d \
-  -v $(pwd)/no-ip2.conf:/usr/local/etc/no-ip2.conf:rw \
-  madduci/docker-noip -d
-```
-
-#### Using noip2 command line
-
-Program usage from noip2 help:
-
-```
-USAGE: noip2 [ -C [ -F][ -Y][ -U #min]
-	[ -u username][ -p password][ -x progname]]
-	[ -c file][ -d][ -D pid][ -i addr][ -S][ -M][ -h]
-
-Version Linux-2.1.9
-Options: -C               create configuration data
-         -F               force NAT off
-         -Y               select all hosts/groups
-         -U minutes       set update interval
-         -u username      use supplied username
-         -p password      use supplied password
-         -x executable    use supplied executable
-         -c config_file   use alternate data path
-         -d               increase debug verbosity
-         -D processID     toggle debug flag for PID
-         -i IPaddress     use supplied address
-         -I interface     use supplied interface
-         -S               show configuration data
-         -M               permit multiple instances
-         -K processID     terminate instance PID
-         -z               activate shm dump code
-         -h               help (this text)
-```
-
-Example
-```
-docker run -d \
-  -v $(pwd)/no-ip2.conf:/usr/local/etc/no-ip2.conf:rw \
-  madduci/docker-noip -d \
-  -u <username> \
-  -p <password> \
-  -U [time-interval]
+  --env NOIP_HOSTNAMES=my_domain \
+  --env NOIP_USERNAME=yourname \
+  --env NOIP_PASSWORD=yourpassword \
+  madduci/docker-noip \
+  --check-interval [time-interval - default 5m]
 ```
 
 ## License
+
 MIT

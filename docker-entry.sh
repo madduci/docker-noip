@@ -1,13 +1,13 @@
 #!/bin/sh
 
-noip2 $@
+noip-duc --username $NOIP_USERNAME --password $NOIP_PASSWORD --hostnames $NOIP_HOSTNAMES @
 
 cleanup() {
   echo "Caught Signal ... cleaning up."
-  kill -s SIGINT $(pgrep noip2)
+  kill -s SIGINT $(pgrep noip-duc)
   echo "Done cleanup ... quitting."
 
-  while pgrep noip2 > /dev/null; do
+  while pgrep noip-duc > /dev/null; do
     sleep 1;
   done
 
@@ -16,7 +16,7 @@ cleanup() {
 
 trap cleanup HUP INT QUIT PIPE TERM
 
-# Wait for the noip2 application to finish
-while pgrep noip2 > /dev/null; do
+# Wait for the noip-duc application to finish
+while pgrep noip-duc > /dev/null; do
     sleep 1;
 done
