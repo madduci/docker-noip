@@ -1,6 +1,6 @@
 #!/bin/sh
 
-noip-duc --username $NOIP_USERNAME --password $NOIP_PASSWORD --hostnames $NOIP_HOSTNAMES @
+noip-duc --username $NOIP_USERNAME --password $NOIP_PASSWORD --hostnames $NOIP_HOSTNAMES "$@"
 
 cleanup() {
   echo "Caught Signal ... cleaning up."

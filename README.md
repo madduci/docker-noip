@@ -46,6 +46,14 @@ This is multi architecture docker image for the [NoIP](https://www.noip.com) DUC
 
 ## Quick Reference
 
+### Building from Sources
+
+Using `docker buildx`, all you need to do is to run the following command:
+
+```sh
+docker buildx build --platform linux/amd64,linux/386,linux/arm64 -t madduci/docker-noip .  --push
+```
+
 ### Running
 
 You need to specify the following environment variables:
